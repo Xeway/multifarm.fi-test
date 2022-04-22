@@ -1,6 +1,7 @@
 from web3 import Web3, HTTPProvider
 import prices
 import json
+import loadContract
 
 contractAddress = "0x35CC71888DBb9FfB777337324a4A60fdBAA19DDE"
 rewardTokenTicker = "BRL"
@@ -26,4 +27,4 @@ rewardsPerWeek = auroraContract.functions.BRLPerBlock().call() / 1e18 * multipli
 # we update the 'tokens' dictionnary by adding the prices
 prices.getPrices(tokens)
 
-print(rewardsPerWeek)
+loadContract.loadAuroraChefContract(w3, tokens, auroraContract, contractAddress, abi, rewardsPerWeek, [14], json)
