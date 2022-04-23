@@ -5,3 +5,8 @@ def getPrices(tokens):
         res = req.get('https://api.coingecko.com/api/v3/simple/price?ids=' + token + '&vs_currencies=usd')
         if (res.status_code == 200):
             tokens[token] = res.json()[token]['usd']
+
+def getRewardPrice():
+    res = req.get('https://api.coingecko.com/api/v3/simple/price?ids=borealis&vs_currencies=usd')
+    if (res.status_code == 200):
+        return res.json()["borealis"]["usd"]

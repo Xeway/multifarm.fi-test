@@ -5,13 +5,13 @@ import loadContract
 
 contractAddress = "0x35CC71888DBb9FfB777337324a4A60fdBAA19DDE"
 rewardTokenTicker = "BRL"
-# tokens = ["weth", "wrapped-near"]
+
 tokens = {
     "weth": 0,
     "wrapped-near": 0
 }
 
-with open("./contract_abi.json") as f:
+with open("./abis/contract_abi.json") as f:
     abi = json.load(f)
 
 w3 = Web3(HTTPProvider("https://mainnet.aurora.dev"))
@@ -27,4 +27,4 @@ rewardsPerWeek = auroraContract.functions.BRLPerBlock().call() / 1e18 * multipli
 # we update the 'tokens' dictionnary by adding the prices
 prices.getPrices(tokens)
 
-loadContract.loadAuroraChefContract(w3, tokens, auroraContract, contractAddress, abi, rewardsPerWeek, [14], json)
+loadContract.loadAuroraChefContract(w3, tokens, auroraContract, contractAddress, rewardsPerWeek, json, prices)
