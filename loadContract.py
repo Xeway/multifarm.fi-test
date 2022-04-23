@@ -15,14 +15,14 @@ def loadAuroraChefContract(w3, prices, auroraContract, contractAddress, rewardsP
 
     tvl = (prices["weth"] * (WETHContract.functions.balanceOf(poolInfo[0]).call() / 10**(WETHContract.functions.decimals().call()))) + (prices["wrapped-near"] * (NEARContract.functions.balanceOf(poolInfo[0]).call() / 10**(NEARContract.functions.decimals().call())))
     
-    price = tvl / (LPToken.functions.totalSupply().call() / 1e18)
+    price = tvl / (LPToken.functions.totalSupply().call() / 10**(LPToken.functions.decimals().call()))
 
     poolRewardsPerWeek = poolInfo[1] / totalAllocPoints * rewardsPerWeek
     rewardPrice = pricesModule.getRewardPrice()
 
     usdPerWeek = poolRewardsPerWeek * rewardPrice
 
-    stakedTVL = price * (LPToken.functions.balanceOf(contractAddress).call() / 1e18)
+    stakedTVL = price * (LPToken.functions.balanceOf(contractAddress).call() / 10**(LPToken.functions.decimals().call()))
 
     weeklyAPR = usdPerWeek / stakedTVL * 100
     yearlyAPR = round(weeklyAPR * 52, 2)
